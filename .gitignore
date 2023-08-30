@@ -1,0 +1,14 @@
+media/images/*
+media/results/*
+db.sqlite3
+Model
+Model/
+env
+env/
+static
+static/
+templates
+templates/
+environment.yml
+requirements.txt
+README.md
