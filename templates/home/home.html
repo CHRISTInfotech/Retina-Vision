@@ -1,0 +1,98 @@
+{%extends 'base.html'%}
+{%load static%}
+
+{%block title %}
+Home
+{%endblock title%}
+
+{%block content%}
+
+<div class="row m-3">
+    <div class="col-2">
+        {% include 'home/sidebar.html' %}
+    </div>
+    <div class="col">
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <div class="  d-flex justify-content-center align-items-center" style="height: 70vh;">
+            <div class="col-5 border border-secondary-subtle p-3">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="file-upload">Select image</label>
+                        <input type="file" accept="image" class="form-control" id="file-upload" name="file-upload" required>
+                        <div class="image-preview mt-3" id="image-preview">
+                            <img src="" class="img-fluid" id="uploaded-image">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="fa-solid fa-diagram-project"></i> Upload
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileUpload = document.getElementById('file-upload');
+        const uploadButton = document.getElementById('upload-button');
+        const imagePreview = document.getElementById('image-preview');
+        const uploadedImage = document.getElementById('uploaded-image');
+
+        fileUpload.addEventListener('change', function () {
+            const selectedFile = fileUpload.files[0];
+            if (selectedFile) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    uploadedImage.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(selectedFile);
+            }
+        });
+
+        uploadButton.addEventListener('click', function () {
+            // Get the selected file from an input element (e.g., <input type="file">)
+            const fileInput = document.getElementById('fileInput');
+            const selectedFile = fileInput.files[0];
+
+            if (selectedFile) {
+                // Create a FormData object to prepare the file for sending
+                const formData = new FormData();
+                formData.append('file', selectedFile);
+
+                // Use the Fetch API to send the FormData to the server
+                fetch('/upload/', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle the response from the server
+                        console.log('Upload success:', data);
+                        // Update the UI or show a message after successful upload
+                    })
+                    .catch(error => {
+                        console.error('Upload error:', error);
+                        // Handle the error and update the UI accordingly
+                    });
+            }
+        });
+    });
+</script>
+
+{%endblock content%}

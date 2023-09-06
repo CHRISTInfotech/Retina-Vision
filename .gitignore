@@ -7,8 +7,6 @@ env
 env/
 static
 static/
-templates
-templates/
 environment.yml
 requirements.txt
 README.md

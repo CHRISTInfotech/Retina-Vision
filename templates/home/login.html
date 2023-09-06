@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+{%load static%}
+
+{%block title %}
+Login
+{%endblock title%}
+
+{%block content%}
+
+<div class="  d-flex justify-content-center align-items-center" style="height: 70vh;">
+    <div class="col-5">
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" name="username" id="username" required placeholder="name@example.com">
+                <label for="username">Email address</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" name="pass" id="pass" required placeholder="Password">
+                <label for="pass">Password</label>
+              </div>
+
+         
+            <div>
+                <button type="submit" class="btn btn-outline-primary">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{%endblock content%}
