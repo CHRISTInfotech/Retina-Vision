@@ -1,8 +1,7 @@
 media/images/*
 media/results/*
 db.sqlite3
-Model
-Model/
+Model/*
 env
 env/
 static
