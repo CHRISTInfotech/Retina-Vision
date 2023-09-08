@@ -1,7 +1,9 @@
 media/images/*
 media/results/*
 db.sqlite3
-Model/*
+Model/__pycache__/
+Model/modules/
+Model/retina.py/
 env
 env/
 static
